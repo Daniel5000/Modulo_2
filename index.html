@@ -31,6 +31,7 @@
     <ol>
       <li ng-repeat="item in list2.items">
         {{ item.quantity }} of {{ item.name }}
+        <button ng-click="list2.NoBuy(item.name,item.quantity,$index);">not  buy</button>
       </li>
     </ol>
 

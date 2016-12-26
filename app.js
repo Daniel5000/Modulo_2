@@ -72,6 +72,11 @@ service.removeItem=function(itemIndex)
   items.splice(itemIndex,1);
 };
 
+service.removeItemboughtItems=function(itemIndex)
+{
+  boughtItems.splice(itemIndex,1);
+};
+
 service.getItems=function()
 {
   return items;
@@ -97,6 +102,21 @@ service.getItems=function()
     }
   };
 
+  service.addItem=function(itemName, quantity)
+  {
+    if ((maxItems===undefined)|| (maxItems!==undefined)&&(items.length<maxItems))
+    {
+      var item={
+        name:itemName,
+        quantity:quantity
+      };
+      items.push(item);
+    }
+    else {
+      throw new Error("Max items (" + maxItems +")reached.");
+    }
+  };
+
 }
 
 BoughtListController.$inject=['ShoppingListService']
@@ -107,6 +127,21 @@ function BoughtListController(ShoppingListService)
 
   list.itemName="";
   list.itemQuantity="";
+
+  list.NoBuy=function(itemName,itemQuantity,itemIndex)
+  {
+    try {
+    ShoppingListService.addItem(itemName,itemQuantity);
+    ShoppingListService.removeItemboughtItems(itemIndex);
+    list.removeItem(itemIndex);
+
+    } catch (error) {
+      list.errorMessage=error.message;
+    }
+
+  };
+
+
 
   list.removeItem=function(itemIndex)
   {
