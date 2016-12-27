@@ -20,14 +20,12 @@ function ShoppingListController(ShoppingListService)
 {
   var list=this;
   list.items=ShoppingListService.getItems();
-  list.itemName="";
-  list.itemQuantity="";
 
   list.boughtItem=function(itemName,itemQuantity,itemIndex)
   {
     try {
     ShoppingListService.boughtItem(itemName,itemQuantity,itemIndex);
-    list.removeItem(itemIndex);
+    ShoppingListService.removeItem(itemIndex);
 
     } catch (error) {
       list.errorMessage=error.message;
@@ -56,15 +54,11 @@ function BoughtListController(ShoppingListService)
   var list=this;
   list.items=ShoppingListService.boughtGetItems();
 
-  list.itemName="";
-  list.itemQuantity="";
-
   list.NoBuy=function(itemName,itemQuantity,itemIndex)
   {
     try {
     ShoppingListService.addItem(itemName,itemQuantity);
     ShoppingListService.removeItemboughtItems(itemIndex);
-    list.removeItem(itemIndex);
 
     } catch (error) {
       list.errorMessage=error.message;
