@@ -15,10 +15,11 @@
         ShoppingListServiceProvider.defaults.maxItems = 5;
     }
 
-    ShoppingListController.$inject = ['$scope','ShoppingListService']
-    function ShoppingListController($scope,ShoppingListService) {
+    ShoppingListController.$inject = ['$scope', 'ShoppingListService']
+
+    function ShoppingListController($scope, ShoppingListService) {
         var list = this;
-        list.items =ShoppingListService.getItems();
+        list.items = ShoppingListService.getItems();
 
         list.boughtItem = function(itemName, itemQuantity, itemIndex) {
             try {
@@ -46,8 +47,9 @@
 
     }
 
-    BoughtListController.$inject = ['$scope','ShoppingListService']
-    function BoughtListController($scope,ShoppingListService) {
+    BoughtListController.$inject = ['$scope', 'ShoppingListService']
+
+    function BoughtListController($scope, ShoppingListService) {
         var list = this;
         list.items = ShoppingListService.boughtGetItems();
 
