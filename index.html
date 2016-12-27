@@ -13,11 +13,11 @@
     <!-- Preconfigured List -->
     <div id="list" ng-controller='ShoppingListController as list'>
       <h3>Shopping List</h3>
-      <!--<input type="text" ng-model="list.itemName" placeholder="item name">-->
-      <!--<input type="text" ng-model="list.itemQuantity" placeholder="quantity">-->
-      <!--<button ng-click="list.addItem();">Add Item</button>-->
+      <div ng-if="list.items.length==0">
+      "Everything is bought!"
+      </div>
       <ol>
-        <li ng-repeat="item in list.items">
+        <li ng-repeat="item in list.items" ng-if="list.items.length>0">
           {{ item.quantity }} of {{ item.name }}
           <button ng-click="list.boughtItem(item.name,item.quantity,$index);">Bought</button>
         </li>
@@ -28,8 +28,12 @@
     <h1>Already Bought</h1>
     <div id="list" ng-controller='BoughtListController as list2'>
       <h3>List Bought</h3>
+      <div ng-if="list2.items.length==0">
+      "Nothing bought yet"
+      </div>
+
     <ol>
-      <li ng-repeat="item in list2.items">
+      <li ng-repeat="item in list2.items" ng-if="list2.items.length>0">
         {{ item.quantity }} of {{ item.name }}
         <button ng-click="list2.NoBuy(item.name,item.quantity,$index);">not  buy</button>
       </li>

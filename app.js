@@ -15,16 +15,16 @@
         ShoppingListServiceProvider.defaults.maxItems = 5;
     }
 
-    ShoppingListController.$inject = ['ShoppingListService']
-
-    function ShoppingListController(ShoppingListService) {
+    ShoppingListController.$inject = ['$scope','ShoppingListService']
+    function ShoppingListController($scope,ShoppingListService) {
         var list = this;
-        list.items = ShoppingListService.getItems();
+        list.items =ShoppingListService.getItems();
 
         list.boughtItem = function(itemName, itemQuantity, itemIndex) {
             try {
                 ShoppingListService.boughtItem(itemName, itemQuantity, itemIndex);
                 ShoppingListService.removeItem(itemIndex);
+
 
             } catch (error) {
                 list.errorMessage = error.message;
@@ -43,11 +43,11 @@
         list.removeItem = function(itemIndex) {
             ShoppingListService.removeItem(itemIndex);
         };
+
     }
 
-    BoughtListController.$inject = ['ShoppingListService']
-
-    function BoughtListController(ShoppingListService) {
+    BoughtListController.$inject = ['$scope','ShoppingListService']
+    function BoughtListController($scope,ShoppingListService) {
         var list = this;
         list.items = ShoppingListService.boughtGetItems();
 
@@ -55,6 +55,7 @@
             try {
                 ShoppingListService.addItem(itemName, itemQuantity);
                 ShoppingListService.removeItemboughtItems(itemIndex);
+
 
             } catch (error) {
                 list.errorMessage = error.message;
@@ -95,8 +96,6 @@
 
         var boughtItems = [];
 
-
-
         service.removeItem = function(itemIndex) {
             items.splice(itemIndex, 1);
         };
@@ -111,7 +110,7 @@
 
         service.boughtGetItems = function() {
             return boughtItems;
-        }
+        };
 
         service.boughtItem = function(itemName, quantity) {
             if ((maxItems === undefined) || (maxItems !== undefined) && (boughtItems.length < maxItems)) {
@@ -149,6 +148,7 @@
 
         provider.$get = function() {
             var shoppingList = new ShoppingListService(provider.defaults.maxItems);
+
             return shoppingList;
         };
 
